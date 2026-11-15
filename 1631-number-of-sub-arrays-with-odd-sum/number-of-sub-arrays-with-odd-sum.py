@@ -1,7 +1,13 @@
 class Solution:
     def numOfSubarrays(self, arr: List[int]) -> int:
+        MOD = 10**9+7
+        prefix_sum = 0
+        oddCount = 0
 
-        n = len(arr) + 1
-        odd = sum(accumulate(arr, lambda x, y: (x+y)%2, initial = 0))
-        
-        return odd * (n - odd) % 1_000_000_007
+        for a in arr:
+            prefix_sum+=a
+            oddCount+=prefix_sum%2
+
+        oddCount+=(len(arr)-oddCount)*oddCount
+
+        return  oddCount%MOD
