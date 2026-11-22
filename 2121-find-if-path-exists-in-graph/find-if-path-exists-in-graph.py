@@ -1,4 +1,4 @@
-from collections import defaultdict
+from collections import deque
 class Solution:
     def validPath(self, n: int, edges: list[list[int]], source: int, destination: int) -> bool:
         if source==destination:
@@ -10,17 +10,18 @@ class Solution:
             graph[v].append(u)
         seen=set()
         seen.add(source)
-        stack=[source]
+        q=deque()
+        q.append(source)
 
-        while stack:
-            node=stack.pop()
+        while q:
+            node=q.popleft()
             if node==destination:
                 return True
             
             for nei_node in graph[node]:
                 if nei_node not in seen:
                     seen.add(nei_node)
-                    stack.append(nei_node)
+                    q.append(nei_node)
 
         return False
                
